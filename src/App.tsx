@@ -17,6 +17,11 @@ const FOODS = [
   { id: 'fish', emoji: '🐟', name: '鱼' },
 ] as const;
 
+// 检查是否在Tauri环境中运行
+const isTauri = () => {
+  return typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
+};
+
 export default function App() {
   const [petState, setPetState] = useState<PetState>('idle');
   const [showMenu, setShowMenu] = useState(false);
@@ -27,13 +32,14 @@ export default function App() {
 
   // 初始化窗口
   useEffect(() => {
-    getCurrentWindow().then((win: Window) => {
-      windowRef.current = win;
-    });
+    if (isTauri()) {
+      windowRef.current = getCurrentWindow();
+    }
   }, []);
 
   // 恢复位置
   useEffect(() => {
+    if (!isTauri()) return;
     invoke<[number, number]>('load_position').then(([x, y]) => {
       if (x && y && windowRef.current) {
         windowRef.current.setPosition(new PhysicalPosition(x, y));
@@ -94,7 +100,9 @@ export default function App() {
 
     if (windowRef.current) {
       const pos = await windowRef.current.outerPosition();
-      invoke('save_position', { x: pos.x, y: pos.y }).catch(console.error);
+      if (isTauri()) {
+        invoke('save_position', { x: pos.x, y: pos.y }).catch(console.error);
+      }
     }
 
     if (petState === 'dragging') {

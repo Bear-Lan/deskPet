@@ -49,10 +49,5 @@
         "installMode": "currentUser"
       }
     }
-  },
-  "plugins": {
-    "autostart": {
-      "macOSLaunchAgent": false
-    }
   }
 }
