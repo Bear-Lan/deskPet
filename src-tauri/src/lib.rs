@@ -128,6 +128,11 @@ pub fn run() {
         .setup(|app| {
             info!("DeskPet starting...");
 
+            // 配置窗口无边框
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.set_decorations(false);
+            }
+
             // 尝试启用开机自启动
             let autolaunch = app.autolaunch();
             let _ = autolaunch.enable();
