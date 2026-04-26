@@ -47,8 +47,13 @@
     "windows": {
       "nsis": {
         "installerIcon": "icons/icon.ico",
-        "installMode": "currentUser"
+        "installMode": "currentUser",
+        "license": null,
+        "installerHeaderIcon": "icons/icon.ico",
+        "headerImage": null,
+        "sidebarImage": null
       }
-    }
+    },
+    "resources": []
   }
 }
