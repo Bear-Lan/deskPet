@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { getCurrentWindow, PhysicalPosition } from '@tauri-apps/api/window';
 import type { Window } from '@tauri-apps/api/window';
 
-type PetState = 'idle' | 'eating' | 'happy' | 'sleeping' | 'dragging';
+type PetState = 'idle' | 'eating' | 'happy' | 'sleeping' | 'sad' | 'fuck' | 'crazy' | 'dragging';
 
 interface Position {
   x: number;
@@ -195,8 +195,10 @@ export default function App() {
       case 'eating': return '/eating.gif';
       case 'happy': return '/happy.gif';
       case 'sleeping': return '/sleeping.png';
-      case 'dragging': return '/idle.gif';
-      default: return '/idle.gif';
+      case 'sad': return '/sad.gif';
+      case 'fuck': return '/fuck.gif';
+      case 'crazy': return '/crazy.gif';
+      default: return '/sad.gif'; // idle 状态复用 happy.gif
     }
   };
 
