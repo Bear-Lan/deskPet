@@ -105,9 +105,12 @@ pub fn run() {
         .setup(|app| {
             info!("DeskPet starting...");
 
-            // 配置窗口无边框
+            // 配置窗口无边框和鼠标事件
             if let Some(window) = app.get_webview_window("main") {
                 let _ = window.set_decorations(false);
+                // 启用鼠标事件接收（透明窗口默认不接收）
+                let _ = window.set_ignore_cursor_events(false);
+                info!("Window configured: decorations=false, cursor_events=false");
             }
 
             // 创建系统托盘
